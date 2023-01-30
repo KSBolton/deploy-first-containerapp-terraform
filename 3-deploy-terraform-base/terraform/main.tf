@@ -1,9 +1,13 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.app_name}-rg"
-  location = var.location
-  tags = {
-    Environment = var.environment
-  }
+# resource "azurerm_resource_group" "rg" {
+#   name     = "${var.app_name}-rg"
+#   location = var.location
+#   tags = {
+#     Environment = var.environment
+#   }
+# }
+
+data "azurerm_resource_group" "rg" {
+  name = "deploy-first-containerapp-rg"
 }
 
 module "loganalytics" {
@@ -12,7 +16,7 @@ module "loganalytics" {
   location                     = var.location
   log_analytics_workspace_sku  = "PerGB2018"
   environment                  = var.environment
-  resource_group_name          = azurerm_resource_group.rg.name
+  resource_group_name          = data.azurerm_resource_group.rg.name
 }
 
 module "acr" {
@@ -20,7 +24,7 @@ module "acr" {
   name                = "${var.acr_name}acr"
   location            = var.location
   environment         = var.environment
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
   sku                 = "Basic"
 }
 
@@ -30,5 +34,5 @@ module "appinsights" {
   location            = var.location
   environment         = var.environment
   application_type    = "web"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
 }
