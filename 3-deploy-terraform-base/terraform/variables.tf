@@ -17,6 +17,6 @@ variable "environment" {
 }
 
 variable "acr_name" {
-  type        = string
-  default     = "deployfirstcontainerapp"
+  type    = string
+  default = "deployfirstcontainerapp"
 }
