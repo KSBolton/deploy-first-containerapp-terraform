@@ -21,6 +21,7 @@ module "acr" {
   location            = var.location
   environment         = var.environment
   resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Basic"
 }
 
 module "appinsights" {
