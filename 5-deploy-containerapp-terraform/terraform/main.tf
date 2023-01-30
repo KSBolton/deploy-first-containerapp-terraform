@@ -48,7 +48,7 @@ resource "azurerm_role_assignment" "containerapp" {
 
 resource "azapi_resource" "containerappmi" {
   type      = "Microsoft.App/containerapps@2022-03-01"
-  name      = "${var.app_name}containermi"
+  name      = "${var.app_name}cmi"
   parent_id = data.azurerm_resource_group.rg.id
   location  = data.azurerm_resource_group.rg.location
 
