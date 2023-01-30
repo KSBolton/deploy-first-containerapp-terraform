@@ -35,4 +35,5 @@ module "appinsights" {
   environment         = var.environment
   application_type    = "web"
   resource_group_name = data.azurerm_resource_group.rg.name
+  la_ws_id            = module.loganalytics.workspace_id
 }
