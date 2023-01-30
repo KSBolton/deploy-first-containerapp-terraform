@@ -66,3 +66,35 @@ jobs:
         push: true
         tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/aspcoresample:${{ github.sha }}
         file: aspnet-core-dotnet-core/Dockerfile
+
+    - name: 'Terraform Format ACA'
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: ${{ env.TF_VERSION }}
+        tf_actions_subcommand: 'fmt'
+        tf_actions_working_dir: "./5-deploy-containerapp-terraform/terraform"
+         
+    - name: 'Terraform Init ACA'
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: ${{ env.TF_VERSION }}
+        tf_actions_subcommand: 'init'
+        tf_actions_working_dir: "./5-deploy-containerapp-terraform/terraform"
+        args: '-var="GITHUB_SHA=${{ github.sha }}"'
+
+    - name: 'Terraform Plan ACA'
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: ${{ env.TF_VERSION }}
+        tf_actions_subcommand: 'plan'
+        tf_actions_working_dir: "./5-deploy-containerapp-terraform/terraform"
+        args: '-var="GITHUB_SHA=${{ github.sha }}"'
+ 
+    - name: 'Terraform Apply ACA'
+      if: github.ref == 'refs/heads/main'
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: ${{ env.TF_VERSION }}
+        tf_actions_subcommand: 'apply'
+        tf_actions_working_dir: "./5-deploy-containerapp-terraform/terraform"
+        args: '-var="GITHUB_SHA=${{ github.sha }}"'      
