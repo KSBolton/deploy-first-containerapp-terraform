@@ -1,18 +1,18 @@
 variable "app_name" {
   type        = string
   description = "name of the app"
-  default     = "firstcontainerapp"
+  default     = "deploy-first-containerapp"
 }
 
 variable "location" {
   type        = string
   description = "Location of Resources"
-  default     = "uksouth"
+  default     = "canadaeast"
 }
 
 variable "environment" {
   type        = string
   description = "Environment"
-  default     = "production"
+  default     = "test"
 }
 
