@@ -17,7 +17,7 @@ module "loganalytics" {
 
 module "acr" {
   source              = "./modules/acr"
-  name                = "${var.app_name}acr"
+  name                = "${var.acr_name}acr"
   location            = var.location
   environment         = var.environment
   resource_group_name = azurerm_resource_group.rg.name
