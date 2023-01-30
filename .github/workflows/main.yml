@@ -53,3 +53,16 @@ jobs:
         tf_actions_version: ${{ env.TF_VERSION }}
         tf_actions_subcommand: 'apply'
         tf_actions_working_dir: "./3-deploy-terraform-base/terraform"
+
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - name: Build the frontend image and push it to ACR
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: firstcontainerappacracr.azurecr.io/aspcoresample:${{ github.sha }}
+        file: aspnet-core-dotnet-core/Dockerfile
