@@ -14,5 +14,5 @@ variable "environment" {
 variable "resource_group_name" {
 }
 
-variable "la_ws_id " {
+variable "la_ws_id" {
 }
